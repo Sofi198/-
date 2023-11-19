@@ -18,21 +18,25 @@ def parcing(busy):
     stop_time.sort() 
     return start_time,stop_time
 def time_for_free(start_time,stop_time):
-    start_work=dt.datetime.strptime('9:00','%H:%M')
-    stop_work=dt.datetime.strptime('21:00','%H:%M')
+    start_work=dt.datetime.strptime('9:40','%H:%M')
+    stop_work=dt.datetime.strptime('23:00','%H:%M')
     n=((stop_work.hour-start_work.hour)*60)//30
     for i in range(n):
-        stop_work=start_work+dt.timedelta(minutes=30)
+        stop_work_1=start_work+dt.timedelta(minutes=30)
         for j in range(len(start_time)):
-            if start_work<=start_time[j] and stop_work<=start_time[j] and stop_work<=stop_time[j]:
+            if start_work<=start_time[j] and stop_work_1<=start_time[j] and stop_work_1<=stop_time[j] and stop_work_1<=stop_work:
                 start_free.append(start_work)
-                stop_free.append(stop_work)
+                stop_free.append(stop_work_1)
                 break
-            elif start_work<=start_time[j] and stop_work>=start_time[j] and stop_work>=stop_time[j] or start_work<=start_time[j] and stop_work>=start_time[j] and stop_work<=stop_time[j]:
+            elif start_work<=start_time[j] and stop_work_1>=start_time[j] and stop_work_1>=stop_time[j] and stop_work_1<=stop_work or start_work<=start_time[j] and stop_work_1>=start_time[j] and stop_work_1<=stop_time[j] and stop_work_1<=stop_work:
                 start_work=stop_time[j]
                 start_free.append(start_work)
-                stop_work=start_work+dt.timedelta(minutes=30)
-                stop_free.append(stop_work)
+                stop_work_1=start_work+dt.timedelta(minutes=30)
+                stop_free.append(stop_work_1)
+                break
+            elif start_work>=start_time[-1] and stop_work_1<=stop_work:
+                start_free.append(start_work)
+                stop_free.append(stop_work_1)
                 break
             
         start_work=start_work+dt.timedelta(minutes=30)
@@ -45,3 +49,4 @@ def lst_of_times(start,stop):
 start,stop=parcing(busy)
 start_free_work,stop_free_work=time_for_free(start,stop)
 lst_of_times(start_free_work,stop_free_work)
+        
