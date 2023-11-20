@@ -18,8 +18,8 @@ def parcing(busy):
     stop_time.sort() 
     return start_time,stop_time
 def time_for_free(start_time,stop_time):
-    start_work=dt.datetime.strptime('9:40','%H:%M')
-    stop_work=dt.datetime.strptime('23:00','%H:%M')
+    start_work=dt.datetime.strptime('9:00','%H:%M')
+    stop_work=dt.datetime.strptime('21:00','%H:%M')
     n=((stop_work.hour-start_work.hour)*60)//30
     for i in range(n):
         stop_work_1=start_work+dt.timedelta(minutes=30)
